@@ -169,19 +169,17 @@
         <div id="contents">
             <h2>↓トピックス情報↓</h2>
         </div>
-        <div id="today-info" style="margin: 8px auto 24px auto; font-size:1.5em; font-weight:normal; text-align:center; max-width:600px; background: #fffbe7; 
-            border-radius: 12px; box-shadow: 0 2px 8px #f6d36544; padding: 20px 24px;">
-            <!-- 日替わりメッセージ例 -->
+        <div id="today-info"
+            style="margin: 8px auto 24px auto; font-size:1.5em; font-weight:normal; text-align:center; max-width:600px; background: #fffbe7; border-radius: 12px; box-shadow: 0 2px 8px #f6d36544; padding: 20px 24px;">
             <script>
-                // 京都らしいサンプル天気データ
                 var dailyInfo = [
-                    { date: '2025/06/11', weather: '晴れ', msg: '今日は鴨川沿いの散歩日和です。' },
-                    { date: '2025/06/12', weather: 'くもり', msg: 'くもり空でも東山の景色は美しいです。' },
-                    { date: '2025/06/13', weather: '雨', msg: '雨の日は寺社巡りで静かな京都を楽しんで。' },
-                    { date: '2025/06/14', weather: '晴れ', msg: '晴れた日は嵐山で自然を満喫しましょう。' },
-                    { date: '2025/06/15', weather: 'くもり', msg: 'くもりの日はカフェでゆったりと。' },
-                    { date: '2025/06/16', weather: '晴れ', msg: '青空の下、金閣寺が輝いています。' },
-                    { date: '2025/06/17', weather: '雨', msg: '雨の京都も風情があります。足元にご注意を。' }
+                    { date: '2025/05/29', weather: 'くもり', msg: '今日はくもり。京都の寺社巡りも快適です。' },
+                    { date: '2025/05/30', weather: '晴れ', msg: '晴れ。観光日和ですが紫外線対策を！' },
+                    { date: '2025/05/31', weather: 'くもり時々晴れ', msg: 'くもり時々晴れ。散策に最適な一日。' },
+                    { date: '2025/06/01', weather: '晴れ', msg: '晴れ。日差しが強いので帽子を。' },
+                    { date: '2025/06/02', weather: 'くもり', msg: 'くもり。涼しい服装で。' },
+                    { date: '2025/06/03', weather: 'くもり一時雨', msg: 'くもり一時雨。雨具を持ってお出かけを。' },
+                    { date: '2025/06/04', weather: '晴れ', msg: '晴れ。熱中症に注意！' }
                 ];
                 var today = new Date();
                 var yyyy = today.getFullYear();
@@ -191,8 +189,31 @@
                 var info = dailyInfo.find(function (d) { return d.date === todayStr; });
                 if (!info) info = dailyInfo[0];
                 document.write('<div><b>今日の天気：</b>' + info.weather + '<br>' + info.msg + '</div>');
+                var crowdForecast = [
+                    { name: '清水寺', weather: info.weather, forecast: '' },
+                    { name: '嵐山', weather: info.weather, forecast: '' },
+                    { name: '金閣寺', weather: info.weather, forecast: '' }
+                ];
+                crowdForecast.forEach(function (spot) {
+                    if (spot.weather.indexOf('晴') !== -1) {
+                        spot.forecast = '混雑-晴天のため来場者多め';
+                    } else if (spot.weather.indexOf('雨') !== -1) {
+                        spot.forecast = 'やや空き-雨天で来場者やや少なめ';
+                    } else if (spot.weather.indexOf('くもり') !== -1) {
+                        spot.forecast = '通常～やや混雑';
+                    } else {
+                        spot.forecast = '通常';
+                    }
+                });
+                document.write('<div style="margin-top:18px; font-size:1.1em; background:#e3f2fd; border-radius:10px; padding:12px 8px; box-shadow:0 1px 4px #247cff22;">');
+                document.write('<b>主要レジャースポット本日の人込み予想</b><br>');
+                document.write('<div style="margin:0 auto; font-size:1em; border-collapse:collapse; width:95%; display:flex; flex-wrap:wrap; justify-content:center; gap:12px;">');
+                crowdForecast.forEach(function (spot) {
+                    document.write('<span style="display:inline-block; background:#fff; border-radius:8px; box-shadow:0 1px 4px #247cff11; padding:6px 16px; margin:4px; font-weight:bold; color:#247cff;">' + spot.name + ': <span style="color:#444; font-weight:normal;">' + spot.forecast + '</span></span>');
+                });
+                document.write('</div></div>');
             </script>
-            <div id="zodiac-mini-ranking" style="margin-top:24px;"></div>
+            <div id="zodiac-top3" style="margin:18px auto 0 auto; max-width:600px; text-align:center;"></div>
             <script>
                 (function () {
                     var zodiacMini = [
@@ -225,20 +246,19 @@
                         zodiacRankMini[i] = zodiacRankMini[j];
                         zodiacRankMini[j] = temp;
                     }
-                    // 上位3位と最下位のみ抽出
                     var top3Mini = zodiacRankMini.slice(0, 3);
-                    var lastMini = zodiacRankMini[zodiacRankMini.length - 1];
-                    var htmlMini = '<div style="font-size:1.1em; font-weight:bold; margin-bottom:8px; color:#a14227;">今日の星座占いランキング</div>';
-                    htmlMini += '<table style="margin:0 auto; font-size:1em; border-collapse:collapse; width:100%;">';
+                    var htmlTop3 = '<div style="font-size:1.1em; font-weight:bold; color:#a14227; margin-bottom:8px;">今日の星座占いランキングTOP3</div>';
+                    htmlTop3 += '<div style="display:flex; justify-content:center; gap:18px; flex-wrap:wrap;">';
                     for (var i = 0; i < top3Mini.length; i++) {
-                        htmlMini += "<tr><td style='font-weight:bold; color:#247cffb9; width:2.5em;'>" + (i + 1) + "位</td><td><img src='" + top3Mini[i].img + "' alt='" + top3Mini[i].name + "' style='width:56px; height:56px; vertical-align:middle;'></td><td style='color:#444; font-weight:bold; font-size:1.1em;'>" + top3Mini[i].name + "</td></tr>";
+                        htmlTop3 += '<div style="background:#fff; border-radius:10px; box-shadow:0 1px 4px #247cff11; padding:10px 18px; min-width:120px; text-align:center;">';
+                        htmlTop3 += '<div style="font-weight:bold; color:#247cffb9; font-size:1.2em;">' + (i + 1) + '位</div>';
+                        htmlTop3 += '<img src="' + top3Mini[i].img + '" alt="' + top3Mini[i].name + '" style="width:48px; height:48px; vertical-align:middle;"><br>';
+                        htmlTop3 += '<span style="color:#444; font-weight:bold; font-size:1.1em;">' + top3Mini[i].name + '</span>';
+                        htmlTop3 += '</div>';
                     }
-                    htmlMini += "<tr><td style='font-weight:bold; color:#e57373;'>最下位</td><td><img src='" + lastMini.img + "' alt='" + lastMini.name + "' style='width:56px; height:56px; vertical-align:middle;'></td><td style='color:#444; font-weight:bold; font-size:1.1em;'>" + lastMini.name + "</td></tr>";
-                    htmlMini += '</table>';
-                    document.getElementById('zodiac-mini-ranking').innerHTML = htmlMini;
+                    htmlTop3 += '</div>';
+                    document.getElementById('zodiac-top3').innerHTML = htmlTop3;
                 })();
-            </script>
-        </div>
             </script>
         </div>
     </header>
