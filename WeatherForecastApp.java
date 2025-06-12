@@ -221,30 +221,6 @@ class WeatherDataPrinter {
         }
         System.out.println("詳しくは: https://tenki.jp/pressure/6/");
     }
-
-    // tenki.jpの内容をもとに大阪府の花粉情報を表示するメソッド
-    public static void printOsakaPollenInfo() {
-        // 本来はWebスクレイピング等で取得するが、ここでは例として1週間分の固定値を表示
-        String[] pollenLevels = { "非常に多い", "多い", "やや多い", "少ない", "非常に多い", "多い", "やや多い" };
-        String[] pollenAdvices = {
-                "外出時はマスクやメガネを着用しましょう",
-                "洗濯物は室内干しがおすすめです",
-                "帰宅時は衣服や髪をよく払ってから入りましょう",
-                "花粉情報をこまめにチェックしましょう"
-        };
-        java.time.LocalDate today = java.time.LocalDate.now();
-        System.out.println("\n【大阪府の花粉情報（tenki.jpより）】");
-        for (int i = 0; i < 7; i++) {
-            java.time.LocalDate date = today.plusDays(i);
-            String youbi = date.getDayOfWeek().getDisplayName(java.time.format.TextStyle.SHORT,
-                    java.util.Locale.JAPANESE);
-            String pollenLevel = pollenLevels[i % pollenLevels.length];
-            String pollenAdvice = pollenAdvices[i % pollenAdvices.length];
-            System.out.println(date.format(java.time.format.DateTimeFormatter.ofPattern("yyyy/MM/dd")) + "（" + youbi
-                    + "）: " + pollenLevel + "（" + pollenAdvice + ")");
-        }
-        System.out.println("詳しくは: https://tenki.jp/pollen/6/");
-    }
 }
 
 // 地震情報取得用クラス
@@ -297,9 +273,9 @@ public class WeatherForecastApp {
     private static final String TARGET_URL = "https://www.jma.go.jp/bosai/forecast/data/forecast/270000.json"; // 気象庁の天気予報APIのURL
 
     public static void main(String[] args) {
-        WeatherDataFetcher fetcher = new WeatherDataFetcher(); // 天気データ取得用クラスのインスタンスを作成
-        WeatherDataParser parser = new WeatherDataParser(); // JSONデータ解析用クラスのインスタンスを作成
-        WeatherDataPrinter printer = new WeatherDataPrinter(); // 天気データ表示用クラスのインスタンスを作成
+        WeatherDataFetcher fetcher = new WeatherDataFetcher();
+        WeatherDataParser parser = new WeatherDataParser();
+        WeatherDataPrinter printer = new WeatherDataPrinter();
 
         try {
             String jsonData = fetcher.fetchWeatherData(TARGET_URL);
@@ -319,18 +295,15 @@ public class WeatherForecastApp {
                 System.out.println("地震情報の取得に失敗しました。");
             }
 
-
             // 気圧情報出力
             WeatherDataPrinter.printOsakaPressureInfo();
             // 紫外線情報出力
             WeatherDataPrinter.printOsakaUVInfo();
             // 熱中症情報出力
             WeatherDataPrinter.printOsakaHeatstrokeInfo();
-            // 花粉情報出力
-            WeatherDataPrinter.printOsakaPollenInfo();
 
         } catch (IOException | URISyntaxException e) {
-            System.out.println("エラーが発生しました: " + e.getMessage()); // エラー発生時のメッセージを表示
+            System.out.println("エラーが発生しました: " + e.getMessage());
         }
     }
 }

@@ -3,27 +3,64 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>滋賀県 花粉情報</title>
-    <link rel="stylesheet" href="../CSS/HOME.css">
+    <title>滋賀県の花粉情報</title>
+    <style>
+        #header {
+            background-color: #f6e7a1;
+            font-size: 30px;
+            color: #a14227;
+            padding: 30px;
+            text-align: center;
+        }
+    
+        #contents {
+            text-align: center;
+            margin: 20px;
+            font-size: 25px;
+        }
+    
+        body {
+            background-color: #fffbe7;
+        }
+    
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            text-align: center;
+        }
+    
+        th,
+        td {
+            border: 2.5px solid #555353;
+            padding: 6px 12px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+    
+        th {
+            background: #555353;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="header" style="text-align:center; margin:32px auto 24px auto;">
-        <h1>滋賀県 花粉情報</h1>
-    </div>
-    <div id="contents"
-        style="text-align:center; margin:0 auto; max-width:600px; background:#fff; border-radius:18px; box-shadow:0 2px 8px #7ec6e644; padding:24px 0;">
-        <h2>滋賀県 花粉情報（サンプル）</h2>
-        <table class="info-table" style="margin: 0 auto; width:90%; border-collapse:collapse;">
-            <thead style="background:linear-gradient(90deg,#f7e0e0,#e0f7fa);">
+    <header>
+        <div id="header">
+            <h1>花粉情報</h1>
+            <div id="header2">
+                <p>滋賀の花粉情報</p>
+            </div>
+        </div>
+        <div id="contents">
+            <h2>花粉情報（サンプル）</h2>
+            <table>
                 <tr>
                     <th>日時</th>
                     <th>花粉量</th>
                     <th>主な種類</th>
                     <th>注意レベル</th>
                 </tr>
-            </thead>
-            <tbody>
                 <tr>
                     <td>2025/06/10 09:00</td>
                     <td>多い</td>
@@ -36,10 +73,10 @@
                     <td>ヒノキ</td>
                     <td>やや注意</td>
                 </tr>
-            </tbody>
-        </table>
-        <p style="margin-top:16px; color:#888;">※上記はサンプルデータです。実際の花粉情報は環境省等の公式発表をご確認ください。</p>
-    </div>
+            </table>
+            <p style="margin-top:16px; color:#888; font-size:0.8em;">※上記はサンプルデータです。実際の花粉情報は環境省等の公式発表をご確認ください。</p>
+        </div>
+    </header>
 </body>
 
 </html>

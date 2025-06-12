@@ -6,34 +6,29 @@
     <title>星座占い</title>
     <style>
         #header {
-            background-color: #ffa641;
+            background-color: #f6d365;
             font-size: 30px;
             color: white;
-            padding: 5px 0;
+            padding: 30px;
             text-align: center;
         }
-
-        #header2 {
-            font-size: 1.2em;
-            margin-top: 5px;
-        }
-
+    
         #contents {
             text-align: center;
             margin: 20px;
             font-size: 25px;
         }
-
+    
         body {
-            background-color: #f0efd1;
+            background-color: #fffbe7;
         }
-
+    
         table {
             border-collapse: collapse;
             margin: 0 auto;
             text-align: center;
         }
-
+    
         th,
         td {
             border: 2.5px solid #555353;
@@ -41,10 +36,16 @@
             font-weight: bold;
             font-size: 1.1em;
         }
-
+    
         th {
             background: #555353;
             color: white;
+        }
+    
+        .zodiac-img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
         }
     </style>
 </head>
@@ -58,73 +59,32 @@
             </div>
         </div>
         <div id="contents">
-            <h2>今日の星座占いランキング（三重県）</h2>
-            <table border="1" id="zodiac-table">
+            <h2>今日の星座占いランキング（サンプル）</h2>
+            <table>
                 <tr>
                     <th>順位</th>
                     <th>星座</th>
-                    <th>画像</th>
                     <th>運勢</th>
-                    <th>金運</th>
-                    <th>恋愛運</th>
-                    <th>仕事運</th>
-                    <th>ラッキーアイテム</th>
+                </tr>
+                <tr>
+                    <td>1位</td>
+                    <td>おひつじ座</td>
+                    <td>絶好調！新しいことに挑戦しよう</td>
+                </tr>
+                <tr>
+                    <td>2位</td>
+                    <td>しし座</td>
+                    <td>人間関係が良好な日</td>
+                </tr>
+                <tr>
+                    <td>3位</td>
+                    <td>ふたご座</td>
+                    <td>金運アップのチャンス</td>
                 </tr>
             </table>
             <p style="margin-top:16px; color:#888; font-size:0.8em;">※上記はサンプルデータです。実際の占い結果は日替わりで更新されます。</p>
         </div>
     </header>
-    <script>
-        const zodiacList = [
-            { name: 'おひつじ座', img: '../../img/おひつじ座.png' },
-            { name: 'おうし座', img: '../../img/おうし座.png' },
-            { name: 'ふたご座', img: '../../img/ふたご座.png' },
-            { name: 'かに座', img: '../../img/かに座.png' },
-            { name: 'しし座', img: '../../img/しし座.png' },
-            { name: 'おとめ座', img: '../../img/おとめ座.png' },
-            { name: 'てんびん座', img: '../../img/てんびん座.png' },
-            { name: 'さそり座', img: '../../img/さそり座.png' },
-            { name: 'いて座', img: '../../img/いて座.png' },
-            { name: 'やぎ座', img: '../../img/やぎ座.png' },
-            { name: 'みずがめ座', img: '../../img/みずがめ座.png' },
-            { name: 'うお座', img: '../../img/うお座.png' }
-        ];
-        const fortuneData = [
-            { fortune: '絶好調', money: '◎', love: '○', work: '◎', item: '赤いハンカチ' },
-            { fortune: '好調', money: '○', love: '◎', work: '○', item: '青いペン' },
-            { fortune: '普通', money: '△', love: '○', work: '○', item: '本' },
-            { fortune: '注意', money: '△', love: '△', work: '△', item: '水筒' },
-            { fortune: '絶好調', money: '◎', love: '◎', work: '◎', item: '時計' },
-            { fortune: '好調', money: '○', love: '○', work: '◎', item: '帽子' },
-            { fortune: '普通', money: '△', love: '○', work: '△', item: 'メモ帳' },
-            { fortune: '注意', money: '△', love: '△', work: '○', item: '傘' },
-            { fortune: '絶好調', money: '◎', love: '◎', work: '○', item: 'スマホ' },
-            { fortune: '好調', money: '○', love: '○', work: '○', item: 'ネックレス' },
-            { fortune: '普通', money: '△', love: '△', work: '○', item: 'お守り' },
-            { fortune: '注意', money: '△', love: '△', work: '△', item: 'カバン' }
-        ];
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = (today.getMonth() + 1).toString().padStart(2, '0');
-        const dd = today.getDate().toString().padStart(2, '0');
-        const seed = parseInt(yyyy + mm + dd);
-        function seededRandom(seed) {
-            let x = Math.sin(seed) * 10000;
-            return x - Math.floor(x);
-        }
-        let zodiacRank = zodiacList.map((z, i) => ({ ...z, ...fortuneData[i], rank: i + 1 }));
-        for (let i = zodiacRank.length - 1; i > 0; i--) {
-            const j = Math.floor(seededRandom(seed + i) * (i + 1));
-            [zodiacRank[i], zodiacRank[j]] = [zodiacRank[j], zodiacRank[i]];
-        }
-        const table = document.getElementById('zodiac-table');
-        for (let i = 0; i < zodiacRank.length; i++) {
-            const z = zodiacRank[i];
-            const tr = document.createElement('tr');
-            tr.innerHTML = `<td>${i + 1}位</td><td>${z.name}</td><td><img src='${z.img}' class='zodiac-img'></td><td>${z.fortune}</td><td>${z.money}</td><td>${z.love}</td><td>${z.work}</td><td>${z.item}</td>`;
-            table.appendChild(tr);
-        }
-    </script>
 </body>
 
 </html>
