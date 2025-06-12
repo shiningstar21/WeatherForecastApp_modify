@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>電車遅延情報</title>
+    <title>大阪の電車遅延情報</title>
     <style>
         #header {
-            background-color: #ffa641;
+            background-color: #3b5998;
             font-size: 30px;
             color: white;
             padding: 5px 0;
@@ -25,7 +25,7 @@
         }
 
         body {
-            background-color: #f0efd1;
+            background-color: #fff8f0;
         }
 
         table {
@@ -45,6 +45,32 @@
         th {
             background: #555353;
             color: white;
+        }
+
+        .delay {
+            color: #e57373;
+            font-weight: bold;
+        }
+
+        .normal {
+            color: #247cffb9;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+
+            #header,
+            #header2,
+            #contents,
+            table {
+                max-width: 98vw;
+            }
+
+            th,
+            td {
+                font-size: 0.95em;
+                padding: 8px 4px;
+            }
         }
     </style>
 </head>
